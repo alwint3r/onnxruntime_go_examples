@@ -121,6 +121,10 @@ func prepareInput(pic image.Image, dst *ort.Tensor[float32]) error {
 }
 
 func getSharedLibPath() string {
+	if os.Getenv("ORT_SHARED_LIB") != "" {
+		return os.Getenv("ORT_SHARED_LIB")
+	}
+
 	if runtime.GOOS == "windows" {
 		if runtime.GOARCH == "amd64" {
 			return "../third_party/onnxruntime.dll"
